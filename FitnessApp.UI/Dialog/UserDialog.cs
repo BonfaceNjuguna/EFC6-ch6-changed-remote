@@ -20,6 +20,36 @@ public class UserDialog
     public void StartLogonDialog()
     {
         // Task 1: Create the first Dialog with the options to Create a new User Account, Logon to the Application or Quit
+        Console.WriteLine("Welcome to Loropio Fitness App");
+        Console.WriteLine("1. Create a new user account");
+        Console.WriteLine("2. Logon");
+        Console.WriteLine("3. Quit");
+        Console.WriteLine("Your selection: ");
+
+        bool validInput = false;
+        while (!validInput)
+        {
+            string? userInput = Console.ReadLine();
+
+            switch (userInput)
+            {
+                case "1":
+                    ShowRegisterNewUserDialog();
+                    validInput = true;
+                    break;
+                case "2":
+                    ShowLogonDialog();
+                    validInput = true;
+                    break;
+                case "3":
+                    validInput = true;
+                    Console.WriteLine("Thank you for using Loropio Fitness App");
+                    break;
+                default:
+                    Console.WriteLine("Invalid choice. Please enter a valid option (1, 2, or 3):");
+                    break;
+            }
+        }
     }
 
     private void ShowRegisterNewUserDialog()
