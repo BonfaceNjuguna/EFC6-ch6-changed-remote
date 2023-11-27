@@ -23,8 +23,10 @@ public class UserRepository : IUserRepository
 
     public User AddUser(User user)
     {
-        // Task 12: Implement the method to add a user 
-        throw new NotImplementedException();
+        // Task 4: Implement the method to add a user 
+        _context.Users.Add(user);
+        _context.SaveChanges();
+        return user;
     }
 
     public void SaveOrUpdate()
