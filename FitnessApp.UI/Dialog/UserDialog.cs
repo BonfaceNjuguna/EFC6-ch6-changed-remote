@@ -55,43 +55,55 @@ public class UserDialog
     private void ShowRegisterNewUserDialog()
     {
         // Task 2:Create a Dialog for User to Register with his UserName and his Password
-        
+        Console.WriteLine("Enter your details to register!");
+        Console.WriteLine("Enter your username: ");
+        string? userNameInput = Console.ReadLine();
+
+        Console.WriteLine("Enter your password: ");
+        string? passwordInput = Console.ReadLine();
+
         // Task 3: Uncomment the lines below and make the work. Use the already implemented Register method for the User
 
-        //if (!string.IsNullOrEmpty(userNameInput) && !string.IsNullOrEmpty(passwordInput))
-        //{
-        //    user.Register(userNameInput, passwordInput);
-        //}
-        //else
-        //{
-        //    Console.WriteLine("You did not enter valid credentials !");
-        //}
+        if (!string.IsNullOrEmpty(userNameInput) && !string.IsNullOrEmpty(passwordInput))
+        {
+            user.Register(userNameInput, passwordInput);
+        }
+        else
+        {
+            Console.WriteLine("You did not enter valid credentials !");
+        }
     }
 
     private void ShowLogonDialog()
     {
         // Task 4: Create the Dialog to Logon with Username and Password
-        
+        Console.WriteLine("Enter your credentials to Logon");
+        Console.WriteLine("Enter your username: ");
+        string? userNameInput = Console.ReadLine();
+
+        Console.WriteLine("Enter your password: ");
+        string? passwordInput = Console.ReadLine();
+
         // uncomment the lines below and make the work
 
-        //if (!string.IsNullOrEmpty(userNameInput) && !string.IsNullOrEmpty(passwordInput))
-        //{
-        //     var credentialsAreValid = user.GetCredentialsAreValid(userNameInput, passwordInput);
+        if (!string.IsNullOrEmpty(userNameInput) && !string.IsNullOrEmpty(passwordInput))
+        {
+             var credentialsAreValid = user.GetCredentialsAreValid(userNameInput, passwordInput);
 
-        //    if (credentialsAreValid)
-        //    {
-        //        Console.WriteLine($"Welcome {user.UserName}, you have logged on successfully !");
-        //        ShowActivityDialog();
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("You did not enter valid credentials !");
-        //    }
-        //}
-        //else
-        //{
-        //    Console.WriteLine("You did not provide your User Name username or Password !");
-        //}
+            if (credentialsAreValid)
+            {
+                Console.WriteLine($"Welcome {user.UserName}, you have logged on successfully !");
+                ShowActivityDialog();
+            }
+            else
+            {
+                Console.WriteLine("You did not enter valid credentials !");
+            }
+        }
+        else
+        {
+            Console.WriteLine("You did not provide your User Name username or Password !");
+        }
     }
 
     private void ShowActivityDialog()
