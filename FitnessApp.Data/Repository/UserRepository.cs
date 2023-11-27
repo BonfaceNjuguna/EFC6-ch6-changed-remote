@@ -13,8 +13,12 @@ public class UserRepository : IUserRepository
 
     public User GetUser(string userName)
     {
-        // Task 11: Implement the method to load a user by his userName including his SportActivities
-        throw new NotImplementedException();
+        // Task 9: Implement the method to load a user by his userName including his SportActivities
+        // I suggess we load the user without activities first
+        // method to be extended in the next branch to include sportactivities
+        var user = _context.Users.FirstOrDefault(u => u.UserName == userName);
+        if (user != null) return user;
+        throw new UserNotFoundException($"User with Username: {userName} does not exist");
     }
 
     public User AddUser(User user)
@@ -30,7 +34,11 @@ public class UserRepository : IUserRepository
 
     public User? GetUserById(int userId)
     {
-        // Task 13: Implement the method to load a user by his is including his SportActivities
-        throw new NotImplementedException();
+        // Task 8: Implement the method to load a user by his is including his SportActivities
+        // i suggest we implement retrieving a user first without including his sportactivities
+        // we can extend this after successful login
+        var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+        if (user != null) return user;
+        return null;
     }
 }

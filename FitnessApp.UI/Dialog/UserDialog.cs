@@ -98,6 +98,7 @@ public class UserDialog
             else
             {
                 Console.WriteLine("You did not enter valid credentials !");
+                StartLogonDialog();
             }
         }
         else
@@ -108,7 +109,7 @@ public class UserDialog
 
     private void ShowActivityDialog()
     {
-        // Task 5 Add the Dialog to Enter a new Sport Activity
+        // Task 9 Add the Dialog to Enter a new Sport Activity
         // Use the existing ActivityDialog class to enter the Sport Activity
     }
 }
