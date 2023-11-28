@@ -26,7 +26,7 @@ public class User
 
     public void AddActivity(SportActivity activity)
     {
-        // Task: implement the code to add an activity;
+        // Task 7: implement the code to add an activity;
     } 
     
     public void Register(string userName, string password)
@@ -43,14 +43,11 @@ public class User
 
     public User? GetUser(int userId)
     {
-        // Task 7: implement the code to get the user by his id;
         return _userRepository.GetUserById(userId);
     }
 
     public bool GetCredentialsAreValid(string userName, string password)
     {
-        // Task 6: Use the Security Provider Class to verify if the credentials of the user are valid
-        // if the credentials are valid set the Id and the UserName of this user
         var user = _userRepository.GetUser(userName);
         if (SecurityProvider.VerifyPassword(password, user.PasswordHash, user.PasswordSalt))
         {

@@ -19,7 +19,6 @@ public class UserDialog
 
     public void StartLogonDialog()
     {
-        // Task 1: Create the first Dialog with the options to Create a new User Account, Logon to the Application or Quit
         Console.WriteLine("Welcome to Loropio Fitness App");
         Console.WriteLine("1. Create a new user account");
         Console.WriteLine("2. Logon");
@@ -29,9 +28,9 @@ public class UserDialog
         bool validInput = false;
         while (!validInput)
         {
-            string? userInput = Console.ReadLine();
+            string? userSelection = Console.ReadLine();
 
-            switch (userInput)
+            switch (userSelection)
             {
                 case "1":
                     ShowRegisterNewUserDialog();
@@ -54,15 +53,12 @@ public class UserDialog
 
     private void ShowRegisterNewUserDialog()
     {
-        // Task 2:Create a Dialog for User to Register with his UserName and his Password
         Console.WriteLine("Enter your details to register!");
         Console.WriteLine("Enter your username: ");
         string? userNameInput = Console.ReadLine();
 
         Console.WriteLine("Enter your password: ");
         string? passwordInput = Console.ReadLine();
-
-        // Task 3: Uncomment the lines below and make the work. Use the already implemented Register method for the User
 
         if (!string.IsNullOrEmpty(userNameInput) && !string.IsNullOrEmpty(passwordInput))
         {
@@ -76,15 +72,12 @@ public class UserDialog
 
     private void ShowLogonDialog()
     {
-        // Task 5: Create the Dialog to Logon with Username and Password
         Console.WriteLine("Enter your credentials to Logon");
         Console.WriteLine("Enter your username: ");
         string? userNameInput = Console.ReadLine();
 
         Console.WriteLine("Enter your password: ");
         string? passwordInput = Console.ReadLine();
-
-        // uncomment the lines below and make the work
 
         if (!string.IsNullOrEmpty(userNameInput) && !string.IsNullOrEmpty(passwordInput))
         {
@@ -109,7 +102,27 @@ public class UserDialog
 
     private void ShowActivityDialog()
     {
-        // Task 9 Add the Dialog to Enter a new Sport Activity
+        // Task 1: Add the Dialog to Enter a new Sport Activity
         // Use the existing ActivityDialog class to enter the Sport Activity
+        Console.WriteLine("1. Register a new activity");
+        Console.WriteLine("99. Logout");
+        Console.Write("Your selection: ");
+        string? userSelection = Console.ReadLine();
+
+        ActivityDialog activityDialog = new();
+        activityDialog.SetUserId(user.Id);
+
+        switch (userSelection)
+        {
+            case "1":
+                activityDialog.RegisterNewActivity();
+                break;
+            case "99":
+                activityDialog.LogOut();
+                break;
+            default:
+                Console.WriteLine("Invalid selection, please try again");
+                break;
+        }
     }
 }

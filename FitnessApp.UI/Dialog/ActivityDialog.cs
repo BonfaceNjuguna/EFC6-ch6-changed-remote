@@ -12,9 +12,37 @@ internal class ActivityDialog
         this._userId = userId;
     }
 
-    public void EnterActivity()
+    public void RegisterNewActivity()
     {
-        // Task 6: Give the possibility to select and enter a activity
+        Console.WriteLine("Which activity would you like to enter?");
+        Console.WriteLine("1. Run Activity \n2. Swim Activity \n3. Bike Activity \n4. Climb Activity \n\n\n0. Go back \n99. Log out");
+        Console.WriteLine("Your selection: ");
+        string? userSelection = Console.ReadLine();
+
+        switch (userSelection)
+        {
+            case "1":
+                OpenActivityDialog(ActivityType.RunActivity);
+                break;
+            case "2":
+                OpenActivityDialog(ActivityType.SwimActivity);
+                break;
+            case "3":
+                OpenActivityDialog(ActivityType.BikeActivity);
+                break;
+            case "4":
+                OpenActivityDialog(ActivityType.ClimbActivity);
+                break;
+            case "0":
+                break;
+            case "99":
+                LogOut();
+                break;
+            default:
+                Console.WriteLine("Invalid selection please try again!");
+                RegisterNewActivity();
+                break;
+        }
     }
 
     private void OpenActivityDialog(ActivityType activityType)
@@ -25,7 +53,7 @@ internal class ActivityDialog
                 AddRunActivity();
                 break;
         }
-        // Task 7 : add the code to add a Bike Activity
+        // Task 4 : add the code to add a Bike Activity
     }
 
     private void AddRunActivity()
@@ -61,18 +89,23 @@ internal class ActivityDialog
             if (afterActivityFeeling != null)
             {
                 Feeling feeling = (Feeling)Enum.Parse(typeof(Feeling), afterActivityFeeling);
-                // Task 8 : add the code to create a run activity add the activity to the users activities and save the user with the activity
+                // Task 5 : add the code to create a run activity add the activity to the users activities and save the user with the activity
             }
             Console.WriteLine("New run Activity created and saved.");
         }
 
-        // Task 9 : add further exceptions to account for conversion and format problems
+        // Task 8 : add further exceptions to account for conversion and format problems
         catch (Exception ex)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"Error: {ex.Message}");
             Console.ResetColor();
         }
+    }
 
+    public void LogOut()
+    {
+        // Task 2: Print log out message
+        Console.WriteLine("You have successfully logged out!!");
     }
 }
