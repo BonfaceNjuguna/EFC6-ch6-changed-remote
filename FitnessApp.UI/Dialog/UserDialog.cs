@@ -100,7 +100,7 @@ public class UserDialog
         }
     }
 
-    private void ShowActivityDialog()
+    public void ShowActivityDialog()
     {
         // Task 1: Add the Dialog to Enter a new Sport Activity
         // Use the existing ActivityDialog class to enter the Sport Activity

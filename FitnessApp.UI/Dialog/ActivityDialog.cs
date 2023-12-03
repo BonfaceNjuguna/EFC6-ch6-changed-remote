@@ -15,9 +15,11 @@ internal class ActivityDialog
     public void RegisterNewActivity()
     {
         Console.WriteLine("Which activity would you like to enter?");
-        Console.WriteLine("1. Run Activity \n2. Swim Activity \n3. Bike Activity \n4. Climb Activity \n\n\n0. Go back \n99. Log out");
+        Console.WriteLine("1. Run Activity \n2. Bike Activity \n\n\n0. Go back \n99. Log out");
         Console.WriteLine("Your selection: ");
         string? userSelection = Console.ReadLine();
+
+        UserDialog userDialog = new UserDialog();
 
         switch (userSelection)
         {
@@ -25,15 +27,10 @@ internal class ActivityDialog
                 OpenActivityDialog(ActivityType.RunActivity);
                 break;
             case "2":
-                OpenActivityDialog(ActivityType.SwimActivity);
-                break;
-            case "3":
                 OpenActivityDialog(ActivityType.BikeActivity);
                 break;
-            case "4":
-                OpenActivityDialog(ActivityType.ClimbActivity);
-                break;
             case "0":
+                userDialog.ShowActivityDialog();
                 break;
             case "99":
                 LogOut();
@@ -52,49 +49,154 @@ internal class ActivityDialog
             case ActivityType.RunActivity:
                 AddRunActivity();
                 break;
+            // Task 4 : add the code to add a Bike Activity
+            case ActivityType.BikeActivity:
+                AddBikeActivity();
+                break;
+            default:
+                Console.WriteLine("Invalid selection! Please try again.");
+                break;
         }
-        // Task 4 : add the code to add a Bike Activity
+
     }
 
     private void AddRunActivity()
     {
         try
         {
-            Console.WriteLine("Enter the total distance covered on the activity in KM");
+            Console.WriteLine("Enter the total distance covered on the run activity in KM");
             string? validActivityTypeInput = Console.ReadLine();
 
             if (string.IsNullOrEmpty(validActivityTypeInput)) throw new ArgumentException("Please enter a valid distance");
             double distanceCovered = double.Parse(validActivityTypeInput);
 
-            Console.WriteLine("Enter the total time spent on the activity in the format HH:MM:SS");
+            Console.WriteLine("Enter the total time spent on the run activity in the format HH:MM:SS");
             string? timeTakenInput = Console.ReadLine();
             if (string.IsNullOrEmpty(timeTakenInput)) throw new ArgumentException("Please enter the valid time in the defined format");
             TimeSpan timeTaken = TimeSpan.Parse(timeTakenInput);
 
-            Console.WriteLine("Enter the date of the activity in the format YYYY/MM/DD");
+            Console.WriteLine("Enter the date of the run activity in the format YYYY/MM/DD");
             string? dateOfActivityInput = Console.ReadLine();
             if (string.IsNullOrEmpty(dateOfActivityInput)) throw new ArgumentException("Please enter a valid date");
             DateTime dateOfActivity = DateTime.Parse(dateOfActivityInput);
 
 
-            Console.WriteLine("How did you feel after the activity: ");
+            Console.WriteLine("How did you feel after the running: ");
             Console.WriteLine("1. BAD");
             Console.WriteLine("2. OK");
             Console.WriteLine("3. GOOD");
             Console.WriteLine("4. STROMG");
             Console.WriteLine("5. VERY STRONG");
-            string afterActivityFeeling = Console.ReadLine();
+            string? afterActivityFeeling = Console.ReadLine();
 
 
             if (afterActivityFeeling != null)
             {
                 Feeling feeling = (Feeling)Enum.Parse(typeof(Feeling), afterActivityFeeling);
                 // Task 5 : add the code to create a run activity add the activity to the users activities and save the user with the activity
+                RunActivity runActivity = new()
+                {
+                    Distance = distanceCovered,
+                    TimeTaken = timeTaken,
+                    ActivityDate = dateOfActivity,
+                    Feeling = feeling
+                };
+
+                var user = new User().GetUser(_userId);
+                if (user != null)
+                {
+                    user.AddActivity(runActivity);
+                    user.SaveOrUpdate();
+                }
             }
             Console.WriteLine("New run Activity created and saved.");
         }
 
-        // Task 8 : add further exceptions to account for conversion and format problems
+        // Task 6 : add further exceptions to account for conversion and format problems
+        catch (FormatException ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Error: {ex.Message}. Please enter a valid number.");
+            Console.ResetColor();
+        }
+        catch (ArgumentNullException ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Error: {ex.Message}");
+            Console.ResetColor();
+        }
+        catch (Exception ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Error: {ex.Message}");
+            Console.ResetColor();
+        }
+    }
+
+    private void AddBikeActivity()
+    {
+        //Task 7: add code for bike activity
+        try
+        {
+            Console.WriteLine("Enter the total distance covered on the bike activity in KM");
+            string? validActivityTypeInput = Console.ReadLine();
+
+            if (string.IsNullOrEmpty(validActivityTypeInput)) throw new ArgumentException("Please enter a valid distance");
+            double distanceCovered = double.Parse(validActivityTypeInput);
+
+            Console.WriteLine("Enter the total time spent on the bike activity in the format HH:MM:SS");
+            string? timeTakenInput = Console.ReadLine();
+            if (string.IsNullOrEmpty(timeTakenInput)) throw new ArgumentException("Please enter the valid time in the defined format");
+            TimeSpan timeTaken = TimeSpan.Parse(timeTakenInput);
+
+            Console.WriteLine("Enter the date of the bike activity in the format YYYY/MM/DD");
+            string? dateOfActivityInput = Console.ReadLine();
+            if (string.IsNullOrEmpty(dateOfActivityInput)) throw new ArgumentException("Please enter a valid date");
+            DateTime dateOfActivity = DateTime.Parse(dateOfActivityInput);
+
+
+            Console.WriteLine("How did you feel after the biking: ");
+            Console.WriteLine("1. BAD");
+            Console.WriteLine("2. OK");
+            Console.WriteLine("3. GOOD");
+            Console.WriteLine("4. STROMG");
+            Console.WriteLine("5. VERY STRONG");
+            string? afterActivityFeeling = Console.ReadLine();
+
+
+            if (afterActivityFeeling != null)
+            {
+                Feeling feeling = (Feeling)Enum.Parse(typeof(Feeling), afterActivityFeeling);
+                BikeActivity bikeActivity = new()
+                {
+                    Distance = distanceCovered,
+                    TimeTaken = timeTaken,
+                    ActivityDate = dateOfActivity,
+                    Feeling = feeling
+                };
+
+                var user = new User().GetUser(_userId);
+                if (user != null)
+                {
+                    user.AddActivity(bikeActivity);
+                    user.SaveOrUpdate();
+                }
+            }
+            Console.WriteLine("New bike Activity created and saved.");
+        }
+
+        catch (FormatException ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Error: {ex.Message}. Please enter a valid number.");
+            Console.ResetColor();
+        }
+        catch (ArgumentNullException ex)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine($"Error: {ex.Message}");
+            Console.ResetColor();
+        }
         catch (Exception ex)
         {
             Console.ForegroundColor = ConsoleColor.Red;
