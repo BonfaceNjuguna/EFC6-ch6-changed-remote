@@ -27,4 +27,23 @@ public class UserTests
         //assert
         Assert.True(logonValid);
     }
+
+    [Fact]
+    public void TestGetCredentialsAreValid_Returns_False()
+    {
+        var userName = "TestUser";
+        var correctPassword = "TestPassword";
+        var incorrectPassword = "IncorrectPassword";
+
+        var hash = SecurityProvider.HashPasword(correctPassword, out var salt);
+        var saltForHash = Convert.ToHexString(salt);
+
+        var userRepositoryMock = new Mock<IUserRepository>();
+        userRepositoryMock.Setup(m => m.GetUser(userName)).Returns(new User { UserName = userName, PasswordHash = hash, PasswordSalt = saltForHash });
+
+        var user = new User(userRepositoryMock.Object);
+        var logonValid = user.GetCredentialsAreValid(userName, incorrectPassword);
+
+        Assert.False(logonValid);
+    }
 }
