@@ -27,6 +27,7 @@ public class User
     public void AddActivity(SportActivity activity)
     {
         // Task 7: implement the code to add an activity;
+        SportActivities.Add(activity);
     } 
     
     public void Register(string userName, string password)

@@ -17,5 +17,12 @@ public class FitnessAppContext : DbContext
     }
 
     // Task 14: in OnModelCreating define the entity relation between User and SportActivity
-    
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>()
+            .HasMany(s => s.SportActivities)
+            .WithOne(e => e.User)
+            .IsRequired();
+    }
+
 }
